@@ -16,9 +16,10 @@ Bundle 'L9'
 Bundle 'Townk/vim-autoclose'
 Bundle 'mileszs/ack.vim'
 Bundle 'thisivan/vim-bufexplorer'
-""Bundle 'xolox/vim-easytags'
-""Bundle 'majutsushi/tagbar'
-""Bundle 'techlivezheng/tagbar-phpctags'
+Bundle 'xolox/vim-easytags'
+"taglist的增强版，查看标签，依赖于ctags
+Bundle 'majutsushi/tagbar'
+"Bundle 'techlivezheng/tagbar-phpctags'
 " 文件浏览
 Bundle 'scrooloose/nerdtree'
 "多行注释，leader键+cc生成, leader+cu删除注释
@@ -61,8 +62,6 @@ Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'kshenoy/vim-signature'
 "书签行高亮
 Bundle 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
-"taglist的增强版，查看标签，依赖于ctags
-Bundle 'majutsushi/tagbar'
 "自动补全
 Bundle 'Valloric/YouCompleteMe'
 "在命令行模式使用grep命令，:Grep
