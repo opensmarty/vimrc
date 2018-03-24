@@ -298,11 +298,17 @@ func SetTitle()
 	if &filetype == 'sh' 
 		call setline(1,"\#!/bin/bash") 
 		call append(line("."), "")
-        
+
     elseif &filetype == 'php'
         call setline(1,"<?php")
-        call append(line("."), "")
-    
+	    call append(line("."),  "/*************************************************************************") 
+		call append(line(".")+1, "*	> File Name: ".expand("%")) 
+		call append(line(".")+2, "*	> Author: opensmarty") 
+		call append(line(".")+3, "*	> Mail: opensmarty@163.com") 
+		call append(line(".")+4, "*	> Created Time: ".strftime("%Y-%m-%d %H:%M")) 
+		call append(line(".")+5, "**************************************************************************/") 
+		call append(line(".")+6, "")
+
     elseif &filetype == 'python'
         call setline(1,"#!/usr/bin/env python")
         call append(line("."),"# coding=utf-8")

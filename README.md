@@ -50,7 +50,7 @@ Useful vim Plugins included
  * [phpcomplete.vim](https://github.com/shawncplus/phpcomplete.vim)
  * [php.vim](https://github.com/shawncplus/php.vim)
  * [PDV--phpDocumentor-for-Vim](https://github.com/vim-scripts/PDV--phpDocumentor-for-Vim)
- * [vim-html5-fix](https://github.com/concise/vim-html5-fix)
+ * [html5.vim](https://github.com/othree/html5.vim)
  * [vim-haml](https://github.com/tpope/vim-haml)
  * [vim-javascript](https://github.com/pangloss/vim-javascript)
  * [vim-jquery](https://github.com/itspriddle/vim-jquery)
@@ -64,7 +64,7 @@ INSTALL
 
 1. clone this vimrc
     ```
-    git clone https://github.com/hightman/vimrc.git
+    git clone https://github.com/opensmarty/vimrc.git
     ```
 
 2. Run the install script
