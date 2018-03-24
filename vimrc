@@ -1,6 +1,18 @@
+"
+" Author: opensmarty
+"
+" Email:  opensmarty@163.com
+"
+" Last Change: 2016年06月19日 16时10分 
+"
+" Version: 7.4.1689
+"
+"=========================================================================
+
 "--------------------
 " Use Vundle to manage bundles
 "--------------------
+set fileformat=unix
 set nocompatible	" be iMproved
 filetype off		" required!
 set rtp+=~/.vim/bundle/vundle
@@ -17,6 +29,11 @@ set history=100		" keep 100 lines of command line history
 set ruler			" show the cursor position all the time
 set ar				" auto read when file is changed from outside
 set nu				" show line numbers
+
+set shortmess=atI   " 启动时隐去援助提示
+set nobackup 		" 不需要备份
+set confirm 		" 没有保存或文件只读时弹出确认
+set mouse=a 		" 鼠标可用
 
 filetype on			" Enable filetype detection
 filetype indent on	" Enable filetype-specific indenting
@@ -52,6 +69,7 @@ set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.lo,*.la,*.obj,*.pyc
 set wildignore+=*.exe,*.zip,*.jpg,*.png,*.gif,*.jpeg 
 
 set autoindent		" auto indentation
+set smartindent 	" 智能缩进
 set incsearch		" incremental search
 set backup			" save backup files
 set backupdir=~/.vim/bak	" where to put backup file
@@ -71,6 +89,9 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 autocmd FileType yaml set expandtab
+
+set autoread 		" 文件自动检测外部更改
+set shell=bash\ -i  " 交互式打开shell
 
 " FOLDING
 set foldenable
@@ -118,6 +139,38 @@ endfun
 "--------------------------------------------------------------------------- 
 " USEFUL SHORTCUTS
 "--------------------------------------------------------------------------- 
+"代码格式优化化
+
+map <F5> :call FormartSrc()<CR><CR>
+
+"定义FormartSrc()
+func FormartSrc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!astyle --style=ansi -a --suffix=none %"
+    elseif &filetype == 'cpp' || &filetype == 'hpp'
+        exec "r !astyle --style=ansi --one-line=keep-statements -a --suffix=none %> /dev/null 2>&1"
+    elseif &filetype == 'perl'
+        exec "!astyle --style=gnu --suffix=none %"
+    elseif &filetype == 'py'||&filetype == 'python'
+        exec "r !autopep8 -i --aggressive %"
+    elseif &filetype == 'java'
+        exec "!astyle --style=java --suffix=none %"
+    elseif &filetype == 'jsp'
+        exec "!astyle --style=gnu --suffix=none %"
+    elseif &filetype == 'xml'
+        exec "!astyle --style=gnu --suffix=none %"
+    else
+        exec "normal gg=G"
+        return
+    endif
+    exec "e! %"
+endfunc
+" 结束定义FormartSrc
+
+" 将tab替换为空格
+nmap tt :%s/\t/ /g<CR>
+
 " set leader to ;
 let mapleader=";"
 let g:mapleader=";"
@@ -233,6 +286,65 @@ set cot-=preview	"disable doc preview in omnicomplete
 "---------------------------------------------
 autocmd FileType php set makeprg=php\ -l\ %
 autocmd FileType php set errorformat=%m\ in\ %f\ on\ line\ %l
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""新文件标题
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"新建.php,.c,.h,.sh,.java文件，自动插入文件头 
+autocmd BufNewFile *.php,*.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec ":call SetTitle()" 
+""定义函数SetTitle，自动插入文件头 
+func SetTitle() 
+	"如果文件类型为.sh文件 
+	if &filetype == 'sh' 
+		call setline(1,"\#!/bin/bash") 
+		call append(line("."), "")
+        
+    elseif &filetype == 'php'
+        call setline(1,"<?php")
+        call append(line("."), "")
+    
+    elseif &filetype == 'python'
+        call setline(1,"#!/usr/bin/env python")
+        call append(line("."),"# coding=utf-8")
+	    call append(line(".")+1, "") 
+
+    elseif &filetype == 'ruby'
+        call setline(1,"#!/usr/bin/env ruby")
+        call append(line("."),"# encoding: utf-8")
+	    call append(line(".")+1, "")
+
+    elseif &filetype == 'mkd'
+        call setline(1,"<head><meta charset=\"UTF-8\"></head>")
+	else 
+		call setline(1, "/*************************************************************************") 
+		call append(line("."), "	> File Name: ".expand("%")) 
+		call append(line(".")+1, "	> Author: opensmarty") 
+		call append(line(".")+2, "	> Mail: opensmarty@163.com") 
+		call append(line(".")+3, "	> Created Time: ".strftime("%Y-%m-%d %H:%M")) 
+		call append(line(".")+4, " ************************************************************************/") 
+		call append(line(".")+5, "")
+	endif
+	if expand("%:e") == 'cpp'
+		call append(line(".")+6, "#include<iostream>")
+		call append(line(".")+7, "using namespace std;")
+		call append(line(".")+8, "")
+	endif
+	if &filetype == 'c'
+		call append(line(".")+6, "#include<stdio.h>")
+		call append(line(".")+7, "")
+	endif
+	if expand("%:e") == 'h'
+		call append(line(".")+6, "#ifndef _".toupper(expand("%:r"))."_H")
+		call append(line(".")+7, "#define _".toupper(expand("%:r"))."_H")
+		call append(line(".")+8, "#endif")
+	endif
+	if &filetype == 'java'
+		call append(line(".")+6,"public class ".expand("%:r"))
+		call append(line(".")+7,"")
+	endif
+	"新建文件后，自动定位到文件末尾
+endfunc 
+autocmd BufNewFile * normal G
 
 "---------------------------------------------
 " for edit CSS
@@ -428,6 +540,7 @@ let g:ctrlp_custom_ignore = {
 			\ 'file': '\v\.(exe|so|dll)$',
 			\ 'link': 'some_bad_symbolic_links',
 			\ }
+let g:ctrlp_extensions = ['funky']
 
 " --- vim-easytags
 nnoremap <leader>ut :UpdateTags!<CR>

@@ -6,15 +6,22 @@
 "
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
- 
+
 " general 
+" 可以通过以下四种方式指定插件的来源
+" a) 指定Github中vim-scripts仓库中的插件，直接指定插件名称即可，插件明中的空格使用“-”代替。
+Bundle 'L9'
+
+" b) 指定Github中其他用户仓库的插件，使用“用户名/插件名称”的方式指定
 Bundle 'Townk/vim-autoclose'
 Bundle 'mileszs/ack.vim'
-Bundle 'thisivan/vim-bufexplorer' 
+Bundle 'thisivan/vim-bufexplorer'
 ""Bundle 'xolox/vim-easytags'
 ""Bundle 'majutsushi/tagbar'
 ""Bundle 'techlivezheng/tagbar-phpctags'
+" 文件浏览
 Bundle 'scrooloose/nerdtree'
+"多行注释，leader键+cc生成, leader+cu删除注释
 Bundle 'scrooloose/nerdcommenter.git'
 Bundle 'vim-scripts/YankRing.vim.git'
 Bundle 'tpope/vim-fugitive'
@@ -25,6 +32,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-endwise'
 Bundle 'sukima/xmledit.git'
 Bundle 'vim-scripts/matchit.zip'
+"快速跳转，按两下leader键和f组合
 Bundle 'Lokaltog/vim-easymotion'
 "AutoComplete & snippets
 Bundle 'Shougo/neocomplcache'
@@ -34,6 +42,36 @@ Bundle 'vim-scripts/OmniCppComplete'
 "Bundle "scrooloose/syntastic"
 "File fuzzy search
 Bundle "kien/ctrlp.vim"
+
+Bundle 'SQLComplete.vim'
+Bundle 'FuzzyFinder'
+Bundle 'python-imports.vim'
+Bundle 'CaptureClipboard'
+Bundle 'ctrlp-modified.vim'
+Bundle 'last_edit_marker.vim'
+Bundle 'synmark.vim'
+Bundle 'Vim-Script-Updater'
+Bundle 'tacahiroy/ctrlp-funky'
+Bundle 'The-NERD-Commenter'
+"status 美化
+Bundle 'Lokaltog/vim-powerline'
+"对c++语法高亮增强
+Bundle 'octol/vim-cpp-enhanced-highlight'
+"书签可视化的插件
+Bundle 'kshenoy/vim-signature'
+"书签行高亮
+Bundle 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
+"taglist的增强版，查看标签，依赖于ctags
+Bundle 'majutsushi/tagbar'
+"自动补全
+Bundle 'Valloric/YouCompleteMe'
+"在命令行模式使用grep命令，:Grep
+Bundle 'vim-scripts/grep.vim'
+"高亮显示行尾的多余空白字符 
+Bundle 'vim-scripts/ShowTrailingWhitespace.git'
+Bundle 'vim-scripts/indentpython.vim.git'
+"python 补全，不依赖于tags,但比较慢，可以使用indexer替换，但不能跳转项目外 
+Bundle 'davidhalter/jedi-vim'
 
 "--------------------
 " for php
@@ -50,7 +88,7 @@ Bundle 'lucapette/vim-jquery-doc'
 "--------------------
 " for html, haml, sass
 "--------------------
-Bundle 'concise/vim-html5-fix'
+Bundle 'othree/html5.vim'
 Bundle 'tpope/vim-haml'
 
 "--------------------
@@ -58,9 +96,16 @@ Bundle 'tpope/vim-haml'
 "--------------------
 Bundle 'pangloss/vim-javascript'
 Bundle 'itspriddle/vim-jquery'
-"Bundle 'hallettj/jslint.vim'
+Bundle 'hallettj/jslint.vim'
+Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
+Bundle 'jsbeautify'
 
-" non github repos
-"Bundle 'git://git.wincent.com/command-t.git'
+"django
+Bundle 'django_templates.vim'
+Bundle 'Django-Projects'
 
+" c) 指定非Github的Git仓库的插件，需要使用git地址
+Bundle 'git://git.wincent.com/command-t.git'
 
+" d) 指定本地Git仓库中的插件
+"Bundle 'file:///Users/gmarik/path/to/plugin'

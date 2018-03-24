@@ -20,7 +20,7 @@ for f in $VIMHOME $VIMFILE; do
     if [ -e "${f}_bak" ]; then
       rm -rf ${f}_bak || error "Can't remove exists backup file: ${f}_bak"
     fi
-    mv $f ${f}_bak || error "Can't rename exists file: $f"  
+    mv $f ${f}_bak || error "Can't rename exists file: $f"
   fi
 done
 
